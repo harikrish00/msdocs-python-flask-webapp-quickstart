@@ -1,10 +1,20 @@
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
+from flask_pymongo import PyMongo
+import certifi
 app = Flask(__name__)
 
 
+# mongodb_client = PyMongo(app, uri="mongodb+srv://admin:Welcome12@cluster0.bl8vv.mongodb.net/SampleDB?retryWrites=true&w=majority")
+# db = mongodb_client.db
+
+app.config["MONGO_URI"] = "mongodb+srv://admin:Welcome12@cluster0.bl8vv.mongodb.net/SampleDB?retryWrites=true&w=majority"
+mongodb_client = PyMongo(app)
+db = mongodb_client.db
+
 @app.route('/')
 def index():
+   db.User.insert_one({'name':'Nilima','email': 'Nilima@example.com'})
    print('Request for index page received')
    return render_template('index.html')
 
