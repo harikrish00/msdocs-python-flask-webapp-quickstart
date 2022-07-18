@@ -14,7 +14,6 @@ db = mongodb_client.db
 
 @app.route('/')
 def index():
-   db.User.insert_one({'name':'Nilima','email': 'Nilima@example.com'})
    print('Request for index page received')
    return render_template('index.html')
 
@@ -26,7 +25,7 @@ def favicon():
 @app.route('/hello', methods=['POST'])
 def hello():
    name = request.form.get('name')
-
+   db.User.insert_one({'name':name,'email': f'{name}@example.com'})
    if name:
        print('Request for hello page received with name=%s' % name)
        return render_template('hello.html', name = name)
